@@ -15,10 +15,14 @@ def add_integer(a, b=98):
         The addition of a and b as an integer
     Raises:
         TypeError: If a or b is not an integer or float
+        OverflowError: If float is too large
     """
     if not isinstance(a, (int, float)):
         raise TypeError("a must be an integer")
     if not isinstance(b, (int, float)):
         raise TypeError("b must be an integer")
     
-    return int(a) + int(b)
+    try:
+        return int(a) + int(b)
+    except (OverflowError, ValueError):
+        raise OverflowError("float overflow")

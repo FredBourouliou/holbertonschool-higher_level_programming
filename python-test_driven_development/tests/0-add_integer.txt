@@ -83,3 +83,26 @@ If either argument is a non-integer and non-float, a TypeError is raised:
     >>> add_integer(2.3, None)
     Traceback (most recent call last):
     TypeError: b must be an integer
+
+Float Overflow
+=============
+
+The function should handle float overflow cases:
+
+::
+
+    >>> add_integer(float('inf'))
+    Traceback (most recent call last):
+    OverflowError: float overflow
+
+::
+
+    >>> add_integer(float('inf'), float('-inf'))
+    Traceback (most recent call last):
+    OverflowError: float overflow
+
+::
+
+    >>> add_integer(float('nan'))
+    Traceback (most recent call last):
+    OverflowError: float overflow
