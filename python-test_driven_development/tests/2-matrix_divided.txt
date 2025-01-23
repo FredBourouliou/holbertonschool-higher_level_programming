@@ -1,0 +1,14 @@
+===========================
+How to Use 2-matrix_divided.py
+===========================
+
+This module defines a function ``matrix_divided(matrix, div)`` that divides all elements of a matrix by a given number.
+
+Usage
+=====
+
+::
+
+    >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+    >>> matrix_divided([[1, 2, 3], [4, 5, 6]], 2)
+    [[0.5, 1.0, 1.5], [2.0, 2.5, 3.0]]
