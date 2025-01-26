@@ -2,7 +2,11 @@
 """
 This module provides a function that multiplies 2 matrices using NumPy.
 """
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    print("numpy module not found. Please install it using: pip3 install numpy==1.15.0")
+    exit(1)
 
 
 def lazy_matrix_mul(m_a, m_b):
@@ -61,6 +65,6 @@ def lazy_matrix_mul(m_a, m_b):
     # Perform matrix multiplication
     try:
         result = np.matmul(np.array(m_a), np.array(m_b))
-        return np.array2string(result, separator=' ')[1:-1]
+        return "[[" + str(result).replace('[', '').replace(']', '') + "]]"
     except Exception:
         raise ValueError("m_a and m_b can't be multiplied") 
