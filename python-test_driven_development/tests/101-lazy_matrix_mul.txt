@@ -1,0 +1,82 @@
+===========================
+How to Use 101-lazy_matrix_mul.py
+===========================
+
+This module defines a matrix multiplication function ``lazy_matrix_mul(m_a, m_b)``
+that uses NumPy.
+
+Usage
+=====
+
+Normal Cases:
+------------
+
+::
+
+    >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
+    >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
+    [[7, 10], [15, 22]]
+
+::
+
+    >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
+    [[13, 16]]
+
+::
+
+    >>> print(lazy_matrix_mul([[1.5, 2.5]], [[3.0, 4.0], [5.0, 6.0]]))
+    [[19.5, 23.5]]
+
+Error Cases:
+-----------
+
+Invalid Types:
+::
+
+    >>> print(lazy_matrix_mul("not a list", [[1, 2]]))
+    Traceback (most recent call last):
+    TypeError: m_a must be a list or m_b must be a list
+
+::
+
+    >>> print(lazy_matrix_mul([[1, 2]], "not a list"))
+    Traceback (most recent call last):
+    TypeError: m_a must be a list or m_b must be a list
+
+::
+
+    >>> print(lazy_matrix_mul([[1, "2"]], [[3, 4]]))
+    Traceback (most recent call last):
+    TypeError: invalid input
+
+Empty Matrices:
+::
+
+    >>> print(lazy_matrix_mul([], [[1, 2]]))
+    Traceback (most recent call last):
+    ValueError: empty matrices
+
+::
+
+    >>> print(lazy_matrix_mul([[]], [[1, 2]]))
+    Traceback (most recent call last):
+    ValueError: empty matrices
+
+Invalid Shapes:
+::
+
+    >>> print(lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2]]))
+    Traceback (most recent call last):
+    TypeError: invalid input
+
+::
+
+    >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6, 7]]))
+    Traceback (most recent call last):
+    TypeError: invalid input
+
+::
+
+    >>> print(lazy_matrix_mul([[1, 2, 3]], [[1, 2], [3, 4]]))
+    Traceback (most recent call last):
+    ValueError: m_a and m_b can't be multiplied 
