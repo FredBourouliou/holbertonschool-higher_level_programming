@@ -14,18 +14,13 @@ Normal Cases:
 ::
 
     >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
-    >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
-    [[7, 10], [15, 22]]
+    >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[5, 6], [7, 8]]))
+    [[19, 22], [43, 50]]
 
 ::
 
     >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
     [[13, 16]]
-
-::
-
-    >>> print(lazy_matrix_mul([[1.5, 2.5]], [[3.0, 4.0], [5.0, 6.0]]))
-    [[19.5, 23.5]]
 
 Error Cases:
 -----------
@@ -33,50 +28,57 @@ Error Cases:
 Invalid Types:
 ::
 
-    >>> print(lazy_matrix_mul("not a list", [[1, 2]]))
+    >>> print(lazy_matrix_mul("Holberton", [[5, 6], [7, 8]]))
     Traceback (most recent call last):
-    TypeError: m_a must be a list or m_b must be a list
+    TypeError: m_a must be a list
 
 ::
 
-    >>> print(lazy_matrix_mul([[1, 2]], "not a list"))
+    >>> print(lazy_matrix_mul([[5, 6], [7, 8]], "Holberton"))
     Traceback (most recent call last):
-    TypeError: m_a must be a list or m_b must be a list
-
-::
-
-    >>> print(lazy_matrix_mul([[1, "2"]], [[3, 4]]))
-    Traceback (most recent call last):
-    TypeError: invalid input
+    TypeError: m_b must be a list
 
 Empty Matrices:
 ::
 
-    >>> print(lazy_matrix_mul([], [[1, 2]]))
+    >>> print(lazy_matrix_mul([[]], [[5, 6], [7, 8]]))
     Traceback (most recent call last):
-    ValueError: empty matrices
+    ValueError: m_a can't be empty
 
 ::
 
-    >>> print(lazy_matrix_mul([[]], [[1, 2]]))
+    >>> print(lazy_matrix_mul([[5, 6], [7, 8]], [[]]))
     Traceback (most recent call last):
-    ValueError: empty matrices
+    ValueError: m_b can't be empty
+
+Invalid Elements:
+::
+
+    >>> print(lazy_matrix_mul([[5, "6"], [7, 8]], [[5, 6], [7, 8]]))
+    Traceback (most recent call last):
+    TypeError: m_a should contain only integers or floats
+
+::
+
+    >>> print(lazy_matrix_mul([[5, 6], [7, 8]], [[5, "6"], [7, 8]]))
+    Traceback (most recent call last):
+    TypeError: m_b should contain only integers or floats
 
 Invalid Shapes:
 ::
 
-    >>> print(lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2]]))
+    >>> print(lazy_matrix_mul([[5, 6, 10], [7, 8]], [[5, 6], [7, 8]]))
     Traceback (most recent call last):
-    TypeError: invalid input
+    TypeError: each row of m_a must be of the same size
 
 ::
 
-    >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6, 7]]))
+    >>> print(lazy_matrix_mul([[5, 6], [7, 8]], [[5, 6, 1], [7, 8]]))
     Traceback (most recent call last):
-    TypeError: invalid input
+    TypeError: each row of m_b must be of the same size
 
 ::
 
-    >>> print(lazy_matrix_mul([[1, 2, 3]], [[1, 2], [3, 4]]))
+    >>> print(lazy_matrix_mul([[1, 2, 3], [3, 4, 5]], [[1, 2], [3, 4]]))
     Traceback (most recent call last):
     ValueError: m_a and m_b can't be multiplied 
