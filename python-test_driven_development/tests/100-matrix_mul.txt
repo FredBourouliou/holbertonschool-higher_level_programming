@@ -7,8 +7,8 @@ This module defines a matrix multiplication function ``matrix_mul(m_a, m_b)``.
 Usage
 =====
 
-``matrix_mul(...)`` returns a new matrix representing the multiplication of
-``m_a`` by ``m_b``.
+Normal Cases:
+------------
 
 ::
 
@@ -25,20 +25,42 @@ Usage
     >>> print(matrix_mul(m_a, m_b))
     [[13, 16]]
 
-The function also works with floating-point numbers:
+Error Cases:
+-----------
+
+Missing Arguments:
+::
+
+    >>> print(matrix_mul()) # doctest: +ELLIPSIS
+    Traceback (most recent call last):
+    TypeError: matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
+
+Invalid Types:
+::
+
+    >>> print(matrix_mul("not a list", [[1, 2]]))
+    Traceback (most recent call last):
+    TypeError: m_a must be a list
 
 ::
 
-    >>> m_a = [[1.2, 5.5, 6.2], [4.66, 12.3, -9.2]]
-    >>> m_b = [[5.0, 3.3], [-2.9, 4.4], [7.2, 4.4]]
-    >>> print(matrix_mul(m_a, m_b))
-    [[34.69, 55.44], [-78.61, 29.018]]
+    >>> print(matrix_mul([[1, 2]], "not a list"))
+    Traceback (most recent call last):
+    TypeError: m_b must be a list
 
-Errors
-======
+::
 
-The function raises errors for invalid inputs:
+    >>> print(matrix_mul([1, 2, 3], [[1, 2]]))
+    Traceback (most recent call last):
+    TypeError: m_a must be a list of lists
 
+::
+
+    >>> print(matrix_mul([[1, 2]], [1, 2, 3]))
+    Traceback (most recent call last):
+    TypeError: m_b must be a list of lists
+
+Empty Matrices:
 ::
 
     >>> print(matrix_mul([], [[1, 2]]))
@@ -51,39 +73,29 @@ The function raises errors for invalid inputs:
     Traceback (most recent call last):
     ValueError: m_b can't be empty
 
+Invalid Elements:
 ::
 
-    >>> print(matrix_mul("not a list", [[1, 2]]))
-    Traceback (most recent call last):
-    TypeError: m_a must be a list
-
-::
-
-    >>> print(matrix_mul([[1, 2]], "also not a list"))
-    Traceback (most recent call last):
-    TypeError: m_b must be a list
-
-::
-
-    >>> print(matrix_mul([[1, "non-number"]], [[3, 4]]))
+    >>> print(matrix_mul([[1, "2"]], [[3, 4]]))
     Traceback (most recent call last):
     TypeError: m_a should contain only integers or floats
 
 ::
 
-    >>> print(matrix_mul([[1, 2]], [[{"a": 1}, 8.8]]))
+    >>> print(matrix_mul([[1, 2]], [[3, "4"]]))
     Traceback (most recent call last):
     TypeError: m_b should contain only integers or floats
 
+Invalid Shapes:
 ::
 
-    >>> print(matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]]))
+    >>> print(matrix_mul([[1, 2], [3, 4, 5]], [[1, 2]]))
     Traceback (most recent call last):
     TypeError: each row of m_a must be of the same size
 
 ::
 
-    >>> print(matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4, 5]]))
+    >>> print(matrix_mul([[1, 2]], [[3, 4], [5, 6, 7]]))
     Traceback (most recent call last):
     TypeError: each row of m_b must be of the same size
 
