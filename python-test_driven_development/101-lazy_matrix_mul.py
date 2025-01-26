@@ -61,6 +61,6 @@ def lazy_matrix_mul(m_a, m_b):
     # Perform matrix multiplication
     try:
         result = np.matmul(np.array(m_a), np.array(m_b))
-        return result.tolist()
+        return np.array2string(result, separator=' ')[1:-1]
     except Exception:
         raise ValueError("m_a and m_b can't be multiplied") 
