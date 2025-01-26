@@ -21,8 +21,9 @@ def matrix_mul(m_a, m_b):
         ValueError: If m_a or m_b is empty or can't be multiplied
     """
     if m_a is None or m_b is None:
-        raise TypeError("matrix_mul() missing 2 required positional arguments: \
-'m_a' and 'm_b'")
+        msg = "matrix_mul() missing 2 required positional arguments: 'm_a' and"
+        msg += " 'm_b'"
+        raise TypeError(msg)
 
     if not isinstance(m_a, list):
         raise TypeError("m_a must be a list")
