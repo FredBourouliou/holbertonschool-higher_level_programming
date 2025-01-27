@@ -25,5 +25,5 @@ class Square:
         assert isinstance(value, int)
         super().__setattr__(name, value)
 
-    def area(self, square=0):
-        self.square = square
+    def area(self):
+        self.Square = Square + Square
