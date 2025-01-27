@@ -1,22 +1,23 @@
 #!/usr/bin/python3
 """
-This module provides a class that defines a square:
+This module defines a Square class.
+
+This class represents a square with a private size attribute.
 """
+
+
 class Square:
-    """The summary line for a class docstring should fit on one line.
+    """Class that defines a square.
 
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
+    This class creates a square with a private size attribute.
 
     Attributes:
-        attr1 (str): Description of `attr1`.
-        attr2 (:obj:`int`, optional): Description of `attr2`.
-
+        __size (int): The size of the square's sides.
     """
     def __init__(self, size):
+        """Initialize a new Square instance.
+
+        Args:
+            size (int): The size of the square's sides.
+        """
         self.__size = size

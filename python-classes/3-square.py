@@ -1,24 +1,31 @@
 #!/usr/bin/python3
 """
-This module provides a class that defines a square:
+This module defines a Square class.
+
+This class represents a square with a private size attribute,
+input validation, and area calculation.
 """
+
+
 class Square:
-    """The summary line for a class docstring should fit on one line.
+    """Class that defines a square.
 
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
+    This class creates a square with a private size attribute,
+    validates the size input, and can calculate its area.
 
     Attributes:
-        attr1 (str): Description of `attr1`.
-        attr2 (:obj:`int`, optional): Description of `attr2`.
-
+        __size (int): The size of the square's sides.
     """
     def __init__(self, size=0):
+        """Initialize a new Square instance.
+
+        Args:
+            size (int, optional): The size of the square's sides. Defaults to 0.
+
+        Raises:
+            TypeError: If size is not an integer.
+            ValueError: If size is less than 0.
+        """
         if not isinstance(size, int):
             raise TypeError("size must be an integer")
         if size < 0:
@@ -30,4 +37,9 @@ class Square:
         super().__setattr__(name, value)
 
     def area(self):
-        self.Square = Square + Square
+        """Calculate the area of the square.
+
+        Returns:
+            int: The area of the square.
+        """
+        return self.__size ** 2
