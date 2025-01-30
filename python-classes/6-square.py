@@ -15,14 +15,14 @@ class Square:
 
     Attributes:
         __size (int): The size of the square's sides.
-        __position (tuple): The position of the square as a tuple of 2 integers.
+        __position (tuple): The position of the square as a tuple
     """
     def __init__(self, size=0, position=(0, 0)):
         """Initialize a new Square instance.
 
         Args:
-            size (int, optional): The size of the square's sides. Defaults to 0.
-            position (tuple, optional): Position of the square. Defaults to (0, 0).
+            size (int, optional): The size of the square's sides.
+            position (tuple, optional): Position of the square.
         """
         self.size = size
         self.position = position

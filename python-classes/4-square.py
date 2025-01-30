@@ -5,6 +5,7 @@ This class represents a square with a private size attribute,
 input validation, and area calculation.
 """
 
+
 class Square:
     """Class that defines a square.
 
