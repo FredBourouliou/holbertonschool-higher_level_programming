@@ -109,7 +109,7 @@ class Rectangle:
         """Return a string representation of the rectangle object.
 
         Returns:
-            str: A string representation that can be used to recreate the object.
+            str: A string representation that can be used
         """
         return f"Rectangle({self.__width}, {self.__height})"
 
