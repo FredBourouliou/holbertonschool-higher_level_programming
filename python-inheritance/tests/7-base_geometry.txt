@@ -10,6 +10,25 @@ First, we need to create an instance of BaseGeometry:
 
     >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
     >>> bg = BaseGeometry()
+    >>> type(bg) == BaseGeometry
+    True
+
+Test documentation:
+    >>> module_doc = __import__('7-base_geometry').__doc__
+    >>> len(module_doc) > 0
+    True
+
+    >>> class_doc = __import__('7-base_geometry').BaseGeometry.__doc__
+    >>> len(class_doc) > 0
+    True
+
+    >>> area_doc = __import__('7-base_geometry').BaseGeometry.area.__doc__
+    >>> len(area_doc) > 0
+    True
+
+    >>> val_doc = __import__('7-base_geometry').BaseGeometry.integer_validator.__doc__
+    >>> len(val_doc) > 0
+    True
 
 Testing the area method
 ----------------------
