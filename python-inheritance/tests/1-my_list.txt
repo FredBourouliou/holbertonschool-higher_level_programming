@@ -64,3 +64,9 @@ Test original list is unchanged:
     [1, 2, 3, 4, 5]
     >>> print(my_list)
     [1, 4, 2, 3, 5]
+
+Test: Append None
+>>> my_list = MyList([1, 2])
+>>> my_list.append(None)
+>>> print(my_list)
+[1, 2, None]
