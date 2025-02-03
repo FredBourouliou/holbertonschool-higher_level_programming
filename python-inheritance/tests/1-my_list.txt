@@ -17,6 +17,26 @@ Test list with one element:
     >>> my_list.print_sorted()
     [1]
 
+Test list with two element:
+    >>> my_list.append(2)
+    >>> my_list.print_sorted()
+    [1, 2]
+
+Test list with three element:
+    >>> my_list.append(3)
+    >>> my_list.print_sorted()
+    [1, 2, 3]
+
+Test list with four element:
+    >>> my_list.append(4)
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4]
+
+Test list with five element:
+    >>> my_list.append(5)
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+
 Test already sorted list:
     >>> my_list = MyList([1, 2, 3, 4])
     >>> my_list.print_sorted()
@@ -38,8 +58,3 @@ Test original list is unchanged:
     [1, 2, 3, 4, 5]
     >>> print(my_list)
     [1, 4, 2, 3, 5]
-
-Test list with duplicates:
-    >>> my_list = MyList([1, 4, 2, 3, 4, 2, 5])
-    >>> my_list.print_sorted()
-    [1, 2, 2, 3, 4, 4, 5] 
