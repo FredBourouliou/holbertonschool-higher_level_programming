@@ -1,0 +1,45 @@
+The ``1-my_list`` module
+======================
+
+Using ``MyList``
+-------------------
+
+Import the class:
+    >>> MyList = __import__('1-my_list').MyList
+
+Test empty list:
+    >>> my_list = MyList()
+    >>> my_list.print_sorted()
+    []
+
+Test list with one element:
+    >>> my_list.append(1)
+    >>> my_list.print_sorted()
+    [1]
+
+Test already sorted list:
+    >>> my_list = MyList([1, 2, 3, 4])
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4]
+
+Test unsorted list:
+    >>> my_list = MyList([1, 4, 2, 3, 5])
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+
+Test list with negative numbers:
+    >>> my_list = MyList([1, -4, 2, -3, 5])
+    >>> my_list.print_sorted()
+    [-4, -3, 1, 2, 5]
+
+Test original list is unchanged:
+    >>> my_list = MyList([1, 4, 2, 3, 5])
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Test list with duplicates:
+    >>> my_list = MyList([1, 4, 2, 3, 4, 2, 5])
+    >>> my_list.print_sorted()
+    [1, 2, 2, 3, 4, 4, 5] 
