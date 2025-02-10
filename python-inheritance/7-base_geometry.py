@@ -1,60 +1,40 @@
 #!/usr/bin/python3
-"""BaseGeometry module.
+"""
+Class BaseGeometry
 
-This module defines the BaseGeometry class which serves as a base class
-for all geometry shapes. It provides basic functionality for geometric
-calculations and validations.
-
-Example:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("side_length", 12)
+This module defines a base class for geometric shapes with methods
+for area calculation and value validation.
 """
 
 
 class BaseGeometry:
-    """A base class for all geometric shapes.
+    """
+    BaseGeometry class with public instance methods.
 
-    This class serves as a template for geometric calculations and validations.
-    It provides methods for calculating area and validating integer values
-    that will be used by geometric shape classes that inherit from it.
-
-    Attributes:
-        No attributes are defined in this base class.
+    This class provides base functionality for geometric calculations
+    including area computation and value validation.
     """
 
     def area(self):
-        """Calculate the area of the geometric shape.
-
-        This method must be implemented by all classes that inherit from
-        BaseGeometry. The base implementation raises an Exception to remind
-        the developer that this method needs to be implemented in the
-        child class.
+        """
+        Public instance method that raises an Exception.
 
         Raises:
-            Exception: Always, with the message "area() is not implemented"
+            Exception: Always raises with message "area() is not implemented"
         """
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        """Validate that a value is a positive integer.
-
-        This method validates that the given value is a positive integer.
-        It is typically used to validate geometric measurements like length,
-        width, radius, etc. before they are used in calculations.
+        """
+        Public instance method that validates value.
 
         Args:
-            name (str): The name of the value being validated. This name
-                will be used in error messages if validation fails.
-            value: The value to validate. Must be a positive integer.
+            name (str): The name of the value being validated
+            value: The value to validate
 
         Raises:
-            TypeError: If value is not an integer.
-            ValueError: If value is less than or equal to 0.
-
-        Example:
-            >>> bg = BaseGeometry()
-            >>> bg.integer_validator("side_length", 12)
-            >>> bg.integer_validator("radius", -5)  # Will raise ValueError
+            TypeError: If value is not an integer
+            ValueError: If value is less than or equal to 0
         """
         if type(value) is not int:
             raise TypeError("{} must be an integer".format(name))
