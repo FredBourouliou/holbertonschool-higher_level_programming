@@ -1,0 +1,35 @@
+The ``0-read_file`` module
+============================
+
+Using ``read_file``
+-------------------
+
+First import ``read_file`` from the ``0-read_file`` module:
+
+    >>> read_file = __import__('0-read_file').read_file
+
+Now test it:
+
+Test with regular file:
+    >>> read_file("my_file_0.txt")
+    We offer a truly innovative approach to education:
+    focus on building reliable applications and scalable systems, take on real-world challenges, collaborate with your peers. 
+    
+    A school every software engineer would have dreamt of! 
+
+Test with empty file:
+    >>> with open('empty_file.txt', 'w') as f:
+    ...     pass
+    >>> read_file("empty_file.txt")
+
+Test with non-existent file (should raise FileNotFoundError):
+    >>> read_file("nonexistent_file.txt")
+    Traceback (most recent call last):
+        ...
+    FileNotFoundError: [Errno 2] No such file or directory: 'nonexistent_file.txt'
+
+Test with default parameter (empty string):
+    >>> read_file()
+    Traceback (most recent call last):
+        ...
+    FileNotFoundError: [Errno 2] No such file or directory: '' 
