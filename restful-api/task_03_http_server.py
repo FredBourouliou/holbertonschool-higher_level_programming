@@ -39,10 +39,23 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self._set_headers()
             self.wfile.write("OK".encode())
         
+        elif self.path == '/info':
+            # Info endpoint
+            info_data = {
+                "version": "1.0",
+                "description": "A simple API built with http.server"
+            }
+            self._send_json_response(info_data)
+        
         else:
             # Handle undefined endpoints
             error_message = {"error": "Endpoint not found"}
             self._send_json_response(error_message, 404)
+
+    def do_POST(self):
+        """Handle POST requests"""
+        error_message = {"error": "Method not allowed"}
+        self._send_json_response(error_message, 405)
 
 
 def run_server(port=8000):
