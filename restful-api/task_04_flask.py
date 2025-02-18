@@ -1,7 +1,7 @@
 """A simple Flask API implementation"""
-from flask import Flask, jsonify, request
+import flask
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 # Store users in memory
 users = {
@@ -23,7 +23,7 @@ def home():
 @app.route('/data')
 def get_data():
     """Return list of all usernames"""
-    return jsonify(list(users.keys()))
+    return flask.jsonify(list(users.keys()))
 
 
 @app.route('/status')
@@ -36,17 +36,17 @@ def get_status():
 def get_user(username):
     """Return user data for given username"""
     if username in users:
-        return jsonify(users[username])
-    return jsonify({"error": "User not found"}), 404
+        return flask.jsonify(users[username])
+    return flask.jsonify({"error": "User not found"}), 404
 
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
     """Add a new user"""
-    data = request.get_json()
+    data = flask.request.get_json()
 
     if 'username' not in data:
-        return jsonify({"error": "Username is required"}), 400
+        return flask.jsonify({"error": "Username is required"}), 400
 
     username = data['username']
     new_user = {
@@ -58,7 +58,7 @@ def add_user():
 
     users[username] = new_user
 
-    return jsonify({
+    return flask.jsonify({
         "message": "User added",
         "user": new_user
     }), 201
