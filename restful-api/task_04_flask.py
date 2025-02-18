@@ -9,11 +9,13 @@ app = Flask(__name__)
 # Store users in memory
 users = {
     "jane": {
+        "username": "jane",
         "name": "Jane",
         "age": 28,
         "city": "Los Angeles"
     },
     "john": {
+        "username": "john",
         "name": "John",
         "age": 30,
         "city": "New York"
@@ -38,8 +40,9 @@ def get_status():
 @app.route('/users/<username>')
 def get_user(username):
     """Return user data for given username"""
-    if username in users:
-        return jsonify(users[username])
+    user = users.get(username)
+    if user:
+        return jsonify(user)
     return jsonify({"error": "User not found"}), 404
 
 @app.route('/add_user', methods=['POST'])
@@ -51,7 +54,12 @@ def add_user():
         return jsonify({"error": "Username is required"}), 400
 
     username = data['username']
+
+    if username in users:
+        return jsonify({"error": "User already exists"}), 400
+
     new_user = {
+        "username": username,
         "name": data.get('name'),
         "age": data.get('age'),
         "city": data.get('city')
