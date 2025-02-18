@@ -6,7 +6,7 @@ This module demonstrates:
 - Converting Python dictionaries to JSON strings
 - Routing requests based on request handler's path attribute
 """
-from http.server import HTTPServer, BaseHTTPRequestHandler
+import http.server, HTTPServer, BaseHTTPRequestHandler
 import json
 
 
