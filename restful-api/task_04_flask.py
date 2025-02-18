@@ -1,88 +1,72 @@
-#!/usr/bin/python3
-"""A Flask API implementation"""
 from flask import Flask, jsonify, request
-from werkzeug.exceptions import HTTPException
 
-# Initialize Flask application
+
 app = Flask(__name__)
 
-# Store users in memory
+
+# Dictionnaire des utilisateurs
 users = {
     "jane": {
-        "username": "jane",
-        "name": "Jane",
-        "age": 28,
-        "city": "Los Angeles"
+        "username": "jane", "name": "Jane", "age": 28, "city": "Los Angeles"
     },
     "john": {
-        "username": "john",
-        "name": "John",
-        "age": 30,
-        "city": "New York"
+        "username": "john", "name": "John", "age": 30, "city": "New York"
     }
 }
 
+
+# Route principale
 @app.route('/')
 def home():
-    """Root endpoint"""
     return "Welcome to the Flask API!"
 
-@app.route('/data')
-def get_data():
-    """Return list of all usernames"""
+
+# Route pour retourner les usernames
+@app.route('/data', methods=['GET'])
+def get_users():
     return jsonify(list(users.keys()))
 
-@app.route('/status')
-def get_status():
-    """Return API status"""
+
+# Route pour vérifier le statut de l'API
+@app.route('/status', methods=['GET'])
+def status():
     return "OK"
 
-@app.route('/users/<username>')
+
+# Route pour obtenir un utilisateur spécifique
+@app.route('/users/<username>', methods=['GET'])
 def get_user(username):
-    """Return user data for given username"""
     user = users.get(username)
     if user:
         return jsonify(user)
     return jsonify({"error": "User not found"}), 404
 
+
+# Route pour ajouter un nouvel utilisateur
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    """Add a new user"""
     data = request.get_json()
-
     if not data or 'username' not in data:
         return jsonify({"error": "Username is required"}), 400
 
     username = data['username']
-
     if username in users:
-        return jsonify({"error": "User already exists"}), 400
+        return jsonify({"error": "User already exists"}), 409
 
-    new_user = {
+    users[username] = {
         "username": username,
-        "name": data.get('name'),
-        "age": data.get('age'),
-        "city": data.get('city')
+        "name": data.get("name", ""),
+        "age": data.get("age", 0),
+        "city": data.get("city", "")
     }
-
-    users[username] = new_user
 
     return jsonify({
         "message": "User added",
-        "user": new_user
+        "user": users[username]
     }), 201
 
-@app.errorhandler(HTTPException)
-def handle_exception(e):
-    """Return JSON instead of HTML for HTTP errors."""
-    response = e.get_response()
-    response.data = jsonify({
-        "code": e.code,
-        "name": e.name,
-        "description": e.description,
-    }).data
-    response.content_type = "application/json"
-    return response
+# Exécuter l'application Flask
 
-if __name__ == '__main__':
-    app.run(port=5000)
+
+if __name__ == "__main__":
+    app.run(debug=True)
