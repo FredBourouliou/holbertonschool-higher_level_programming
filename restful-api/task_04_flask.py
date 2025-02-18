@@ -1,9 +1,17 @@
-import json
+"""A RESTful API implementation using Flask
+
+This module demonstrates the basic concepts of REST APIs:
+- HTTP methods (GET, POST)
+- Resource-based routing
+- JSON data handling
+- Status codes
+"""
 from flask import Flask, jsonify, request
 
+# Initialize Flask application
 app = Flask(__name__)
 
-# Dictionnaire d'utilisateurs en mémoire
+# In-memory database simulation
 users = {
     "jane": {
         "username": "jane",
@@ -19,67 +27,87 @@ users = {
     }
 }
 
+
 @app.route('/')
 def home():
-    """Retourne un message d'accueil."""
+    """Root endpoint
+    
+    Returns:
+        str: Welcome message
+    """
     return "Welcome to the Flask API!"
 
-@app.route('/data', methods=['GET'])
+
+@app.route('/data')
 def get_data():
-    """
-    Retourne la liste de tous les usernames
-    sous forme de JSON (ex. ["jane","john"]).
+    """List all resources (usernames)
+    
+    Returns:
+        JSON: List of available usernames
     """
     return jsonify(list(users.keys()))
 
-@app.route('/status', methods=['GET'])
-def status():
-    """Retourne 'OK'."""
+
+@app.route('/status')
+def get_status():
+    """Health check endpoint
+    
+    Returns:
+        str: API status
+    """
     return "OK"
 
-@app.route('/users/<username>', methods=['GET'])
+
+@app.route('/users/<username>')
 def get_user(username):
-    """
-    Retourne les informations de l'utilisateur <username>.
-    Si l'utilisateur n'existe pas, renvoie:
-      {"error": "User not found"} avec un code 404.
+    """Retrieve a specific user's data
+    
+    Args:
+        username (str): The username to look up
+    
+    Returns:
+        JSON: User data or error message
     """
     if username in users:
         return jsonify(users[username])
     return jsonify({"error": "User not found"}), 404
 
+
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    """
-    Attend un JSON de la forme:
-      {
+    """Create a new user
+    
+    Expected JSON payload:
+    {
         "username": "alice",
         "name": "Alice",
         "age": 25,
         "city": "San Francisco"
-      }
-    - Si 'username' est absent, renvoie un code 400:
-        {"error": "Username is required"}
-    - Sinon, ajoute l'utilisateur et renvoie un code 201:
-        {
-          "message": "User added",
-          "user": { ... }
-        }
+    }
+    
+    Returns:
+        JSON: Confirmation message and user data
     """
     data = request.get_json()
 
-    # Vérifie l'absence des données ou du champ 'username'
-    if not data or "username" not in data:
+    if not data or 'username' not in data:
         return jsonify({"error": "Username is required"}), 400
 
-    # Ajoute ou écrase l'utilisateur dans le dictionnaire
-    users[data["username"]] = data
+    username = data['username']
+    new_user = {
+        "username": username,
+        "name": data.get('name'),
+        "age": data.get('age'),
+        "city": data.get('city')
+    }
+
+    users[username] = new_user
 
     return jsonify({
         "message": "User added",
-        "user": data
+        "user": new_user
     }), 201
 
+
 if __name__ == '__main__':
-    # Lance le serveur Flask
     app.run()
