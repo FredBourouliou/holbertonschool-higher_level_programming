@@ -4,18 +4,8 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 users = {
-    "jane": {
-        "username": "jane",
-        "name": "Jane",
-        "age": 28,
-        "city": "Los Angeles"
-    },
-    "john": {
-        "username": "john",
-        "name": "John",
-        "age": 30,
-        "city": "New York"
-    }
+    "jane": {"name": "Jane", "age": 28, "city": "Los Angeles"},
+    "john": {"name": "John", "age": 30, "city": "New York"}
 }
 
 @app.route("/")
@@ -33,7 +23,9 @@ def get_status():
 @app.route("/users/<username>", methods=["GET"])
 def get_user(username):
     if username in users:
-        return jsonify(users[username])
+        user_data = users[username].copy()
+        user_data["username"] = username
+        return jsonify(user_data)
     else:
         return jsonify({"error": "User not found"}), 404
 
@@ -46,15 +38,17 @@ def add_user():
     
     username = data["username"]
     users[username] = {
-        "username": username,
         "name": data.get("name", ""),
         "age": data.get("age", 0),
         "city": data.get("city", "")
     }
 
+    user_data = users[username].copy()
+    user_data["username"] = username
+
     return jsonify({
         "message": "User added",
-        "user": users[username]
+        "user": user_data
     }), 201
 
 if __name__ == "__main__":
