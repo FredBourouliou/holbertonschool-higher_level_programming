@@ -6,11 +6,11 @@ This module demonstrates:
 - Converting Python dictionaries to JSON strings
 - Routing requests based on request handler's path attribute
 """
-import http.server, HTTPServer, BaseHTTPRequestHandler
+import http.server
 import json
 
 
-class SimpleAPIHandler(BaseHTTPRequestHandler):
+class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
     """Handler for our simple API server
 
     Demonstrates proper use of:
@@ -82,8 +82,8 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
 
         else:
             # Handle undefined endpoints with 404
-            error_message = {"error": "Endpoint not found"}
-            self._send_json_response(error_message, 404)
+            self._set_headers(404)
+            self.wfile.write("404 Not Found".encode())
 
     def do_POST(self):
         """Handle POST requests
@@ -101,7 +101,7 @@ def run_server(port=8000):
         port (int): Port number to listen on (default: 8000)
     """
     server_address = ('', port)
-    httpd = HTTPServer(server_address, SimpleAPIHandler)
+    httpd = http.server.HTTPServer(server_address, SimpleAPIHandler)
     print(f"Server running on port {port}...")
     httpd.serve_forever()
 
