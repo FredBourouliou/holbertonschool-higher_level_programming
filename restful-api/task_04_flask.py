@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A Flask API implementation"""
 from flask import Flask, jsonify, request
+from werkzeug.exceptions import HTTPException
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -43,7 +44,7 @@ def get_user(username):
     """Return user data for given username"""
     if username in users:
         return jsonify(users[username])
-    return "User not found", 404
+    return jsonify({"error": "User not found"}), 404
 
 
 @app.route('/add_user', methods=['POST'])
@@ -52,7 +53,7 @@ def add_user():
     data = request.get_json()
 
     if not data or 'username' not in data:
-        return "Username is required", 400
+        return jsonify({"error": "Username is required"}), 400
 
     username = data['username']
     new_user = {
@@ -67,6 +68,17 @@ def add_user():
         "message": "User added",
         "user": new_user
     }), 201
+
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    response = e.get_response()
+    response.data = jsonify({
+        "error": e.description
+    })
+    response.content_type = "application/json"
+    return response
 
 
 if __name__ == '__main__':
