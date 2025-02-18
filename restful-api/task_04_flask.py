@@ -1,17 +1,10 @@
-"""A RESTful API implementation using Flask
-
-This module demonstrates the basic concepts of REST APIs:
-- HTTP methods (GET, POST)
-- Resource-based routing
-- JSON data handling
-- Status codes
-"""
+"""A Flask API implementation"""
 from flask import Flask, jsonify, request
 
 # Initialize Flask application
 app = Flask(__name__)
 
-# In-memory database simulation
+# Store users in memory
 users = {
     "jane": {
         "username": "jane",
@@ -30,44 +23,25 @@ users = {
 
 @app.route('/')
 def home():
-    """Root endpoint
-    
-    Returns:
-        str: Welcome message
-    """
+    """Root endpoint"""
     return "Welcome to the Flask API!"
 
 
 @app.route('/data')
 def get_data():
-    """List all resources (usernames)
-    
-    Returns:
-        JSON: List of available usernames
-    """
+    """Return list of all usernames"""
     return jsonify(list(users.keys()))
 
 
 @app.route('/status')
 def get_status():
-    """Health check endpoint
-    
-    Returns:
-        str: API status
-    """
+    """Return API status"""
     return "OK"
 
 
 @app.route('/users/<username>')
 def get_user(username):
-    """Retrieve a specific user's data
-    
-    Args:
-        username (str): The username to look up
-    
-    Returns:
-        JSON: User data or error message
-    """
+    """Return user data for given username"""
     if username in users:
         return jsonify(users[username])
     return jsonify({"error": "User not found"}), 404
@@ -75,19 +49,7 @@ def get_user(username):
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    """Create a new user
-    
-    Expected JSON payload:
-    {
-        "username": "alice",
-        "name": "Alice",
-        "age": 25,
-        "city": "San Francisco"
-    }
-    
-    Returns:
-        JSON: Confirmation message and user data
-    """
+    """Add a new user"""
     data = request.get_json()
 
     if not data or 'username' not in data:
