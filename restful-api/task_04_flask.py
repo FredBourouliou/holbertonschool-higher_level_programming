@@ -3,61 +3,68 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Store users in memory
+# Stockage en mémoire des utilisateurs
 users = {
     "jane": {
         "username": "jane",
         "name": "Jane",
         "age": 28,
         "city": "Los Angeles"
+    },
+    "john": {
+        "username": "john",
+        "name": "John",
+        "age": 30,
+        "city": "New York"
     }
 }
 
 
 @app.route('/')
 def home():
-    """Root endpoint"""
+    """Page d'accueil"""
     return "Welcome to the Flask API!"
 
 
 @app.route('/data')
 def get_data():
-    """Return list of all usernames"""
-    return jsonify(list(users.keys()))
+    """Retourne une liste des usernames"""
+    return jsonify(list(users.keys())), 200
 
 
 @app.route('/status')
 def get_status():
-    """Return API status"""
-    return jsonify("OK")
+    """Renvoie OK en texte brut"""
+    return "OK", 200
 
 
 @app.route('/users/<username>')
 def get_user(username):
-    """Return user data for given username"""
-    if username in users:
-        return jsonify(users[username])
+    """Retourne les informations d'un utilisateur spécifique"""
+    user = users.get(username)
+    if user:
+        return jsonify(user), 200
     return jsonify({"error": "User not found"}), 404
 
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    """Add a new user"""
+    """Ajoute un nouvel utilisateur"""
     data = request.get_json()
 
-    if not data or 'username' not in data:
+    if not data or "username" not in data:
         return jsonify({"error": "Username is required"}), 400
 
-    username = data['username']
+    username = data["username"]
 
     if username in users:
         return jsonify({"error": "User already exists"}), 400
 
     new_user = {
         "username": username,
-        "name": data.get('name'),
-        "age": data.get('age'),
-        "city": data.get('city')
+        "name": data.get("name", ""),
+        "age": data.get("age", 0),
+        "city": data.get("city", "")
     }
 
     users[username] = new_user
