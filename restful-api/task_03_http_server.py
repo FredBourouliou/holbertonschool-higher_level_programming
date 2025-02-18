@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """A simple HTTP server implementation using http.server
 
 This module demonstrates:
