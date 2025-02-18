@@ -12,7 +12,7 @@ import json
 
 class SimpleAPIHandler(BaseHTTPRequestHandler):
     """Handler for our simple API server
-    
+
     Demonstrates proper use of:
     - send_response: Sets the HTTP response code
     - send_header: Sets individual HTTP headers
@@ -22,7 +22,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
 
     def _set_headers(self, status_code=200, content_type='text/plain'):
         """Helper method to set HTTP headers
-        
+
         Args:
             status_code (int): HTTP status code (default: 200)
             content_type (str): MIME type for Content-Type header
@@ -36,9 +36,9 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
 
     def _send_json_response(self, data, status_code=200):
         """Helper method to send JSON response
-        
+
         Converts Python dict to JSON string and sends with proper headers
-        
+
         Args:
             data (dict): Python dictionary to convert to JSON
             status_code (int): HTTP status code (default: 200)
@@ -49,7 +49,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         """Handle GET requests
-        
+
         Routes requests based on self.path to different endpoints
         """
         # Use self.path to route requests to different handlers
@@ -57,7 +57,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             # Root endpoint
             self._set_headers()
             self.wfile.write("Hello, this is a simple API!".encode())
-        
+
         elif self.path == '/data':
             # Data endpoint - return sample JSON data
             sample_data = {
@@ -66,12 +66,12 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                 "city": "New York"
             }
             self._send_json_response(sample_data)
-        
+
         elif self.path == '/status':
             # Status endpoint
             self._set_headers()
             self.wfile.write("OK".encode())
-        
+
         elif self.path == '/info':
             # Info endpoint
             info_data = {
@@ -79,7 +79,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                 "description": "A simple API built with http.server"
             }
             self._send_json_response(info_data)
-        
+
         else:
             # Handle undefined endpoints with 404
             error_message = {"error": "Endpoint not found"}
@@ -87,7 +87,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         """Handle POST requests
-        
+
         Returns 405 Method Not Allowed for all POST requests
         """
         error_message = {"error": "Method not allowed"}
@@ -96,7 +96,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
 
 def run_server(port=8000):
     """Start the HTTP server
-    
+
     Args:
         port (int): Port number to listen on (default: 8000)
     """
@@ -107,4 +107,4 @@ def run_server(port=8000):
 
 
 if __name__ == '__main__':
-    run_server() 
+    run_server()
