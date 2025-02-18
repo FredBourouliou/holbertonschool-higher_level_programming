@@ -82,7 +82,7 @@ class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
         else:
             # Handle undefined endpoints with 404
             self._set_headers(404)
-            self.wfile.write("404 Not Found".encode())
+            self.wfile.write("Endpoint not found".encode())
 
     def do_POST(self):
         """Handle POST requests
