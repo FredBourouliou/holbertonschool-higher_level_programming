@@ -6,16 +6,9 @@ app = Flask(__name__)
 # Store users in memory
 users = {
     "jane": {
-        "username": "jane",
         "name": "Jane",
         "age": 28,
         "city": "Los Angeles"
-    },
-    "john": {
-        "username": "john",
-        "name": "John",
-        "age": 30,
-        "city": "New York"
     }
 }
 
@@ -51,23 +44,18 @@ def add_user():
     """Add a new user"""
     data = request.get_json()
 
-    # Check if username is provided
     if 'username' not in data:
         return jsonify({"error": "Username is required"}), 400
 
-    # Create new user entry with username included
     username = data['username']
     new_user = {
-        "username": username,
         "name": data.get('name'),
         "age": data.get('age'),
         "city": data.get('city')
     }
 
-    # Add user to dictionary
     users[username] = new_user
 
-    # Return success response with exact format
     return jsonify({
         "message": "User added",
         "user": new_user
@@ -75,4 +63,4 @@ def add_user():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run()
