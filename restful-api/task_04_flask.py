@@ -20,25 +20,33 @@ users = {
 }
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     """Page d'accueil"""
-    return "Welcome to the Flask API!"
+    return app.response_class(
+        response="Welcome to the Flask API!",
+        status=200,
+        mimetype="text/plain"
+    )
 
 
-@app.route('/data')
+@app.route('/data', methods=['GET'])
 def get_data():
     """Retourne une liste des usernames"""
     return jsonify(list(users.keys())), 200
 
 
-@app.route('/status')
+@app.route('/status', methods=['GET'])
 def get_status():
     """Renvoie OK en texte brut"""
-    return "OK", 200
+    return app.response_class(
+        response="OK",
+        status=200,
+        mimetype="text/plain"
+    )
 
 
-@app.route('/users/<username>')
+@app.route('/users/<username>', methods=['GET'])
 def get_user(username):
     """Retourne les informations d'un utilisateur spécifique"""
     user = users.get(username)
@@ -50,9 +58,12 @@ def get_user(username):
 @app.route('/add_user', methods=['POST'])
 def add_user():
     """Ajoute un nouvel utilisateur"""
+    if not request.is_json:
+        return jsonify({"error": "Invalid JSON format"}), 400
+
     data = request.get_json()
 
-    if not data or "username" not in data:
+    if "username" not in data:
         return jsonify({"error": "Username is required"}), 400
 
     username = data["username"]
@@ -60,6 +71,7 @@ def add_user():
     if username in users:
         return jsonify({"error": "User already exists"}), 400
 
+    # Assurer que tous les champs existent (éviter None)
     new_user = {
         "username": username,
         "name": data.get("name", ""),
