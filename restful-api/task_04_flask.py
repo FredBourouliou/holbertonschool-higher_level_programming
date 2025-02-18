@@ -8,13 +8,11 @@ app = Flask(__name__)
 # Store users in memory
 users = {
     "jane": {
-        "username": "jane",
         "name": "Jane",
         "age": 28,
         "city": "Los Angeles"
     },
     "john": {
-        "username": "john",
         "name": "John",
         "age": 30,
         "city": "New York"
@@ -58,7 +56,6 @@ def add_user():
 
     username = data['username']
     new_user = {
-        "username": username,
         "name": data.get('name'),
         "age": data.get('age'),
         "city": data.get('city')
