@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Check if all required arguments are provided
     if len(sys.argv) != 5:
         print("Usage: {} <mysql username> <mysql password> <database name> "
-            "<state name>".format(sys.argv[0]))
+             "<state name>".format(sys.argv[0]))
         sys.exit(1)
 
     # Get command line arguments
